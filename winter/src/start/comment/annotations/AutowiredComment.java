@@ -1,4 +1,4 @@
-package autowired;
+package start.comment.annotations;
 
 // Importa o ElementType.
 // Ele é usado para dizer em que lugar a anotação pode ser aplicada.

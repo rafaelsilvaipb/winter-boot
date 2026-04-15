@@ -1,5 +1,9 @@
-package autowired;
+package start;
 
+import start.annotations.Autowired;
+import start.annotations.Service;
+
+@Service
 public class UserService {
 
     @Autowired
