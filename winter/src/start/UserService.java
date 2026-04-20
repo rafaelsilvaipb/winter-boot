@@ -9,7 +9,19 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public void execute() {
-        System.out.println(userRepository.findUser());
+    public String findUser() {
+        return userRepository.findUser();
+    }
+
+    public String createUser() {
+        return "Usuário criado com sucesso";
+    }
+
+    public String updateUser() {
+        return "Usuário atualizado com sucesso";
+    }
+
+    public String deleteUser() {
+        return "Usuário removido com sucesso";
     }
 }

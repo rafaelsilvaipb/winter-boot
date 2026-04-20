@@ -5,9 +5,10 @@ Usando somente o java puro.
 
 - [x] 1 - @Autowired
 - [X] 2 - @Component, @Service, @Repository
-- [ ] 3 - @RestControler, @RequestMapping, (GET, POST, PUT, DELETE)
-- [ ] 4 - @WinterBootApplication, Scanner automático de classes
-- [ ] 5 - Winter Data - Repository o mais pŕoximo do real
+- [x] 3 - @RestControler, @RequestMapping, (GET, POST, PUT, DELETE)
+- [ ] 4 - @RequestBody, @PathVariable, @RequestParam
+- [ ] 5 - @WinterBootApplication, Scanner automático de classes
+- [ ] 6 - Winter Data - Repository o mais pŕoximo do real
 
 
 ## 1 - Autowired
@@ -54,4 +55,53 @@ public class UserRepositoryImpl implements UserRepository {
         return "Usuário encontrado no banco";
     }
 }
+```
+
+## 3 - @RestControler, @RequestMapping, (GET, POST, PUT, DELETE)
+Agora temos o nosso controller funcional com get, post, put e delete.
+
+@Controller
+```
+@RestController
+@RequestMapping("/users")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/find")
+    public String findUser() {
+        return userService.findUser();
+    }
+}
+```
+
+Como testar
+
+Suba o Main e teste:
+
+
+GET
+```
+curl -X GET http://localhost:8080/users
+```
+
+GET chamando service/repository
+```
+curl -X GET http://localhost:8080/users/find
+```
+
+POST
+```
+curl -X POST http://localhost:8080/users
+```
+
+PUT
+```
+curl -X PUT http://localhost:8080/users
+```
+
+PUT
+```
+curl -X DELETE http://localhost:8080/users
 ```

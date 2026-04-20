@@ -182,6 +182,6 @@ public class MainComment {
         // esse campo já deve estar preenchido.
         //
         // Na prática, isso mostra que o mini container funcionou.
-        userService.execute();
+        //userService.execute();
     }
 }

@@ -1,8 +1,12 @@
 package start;
 
 import start.impl.UserRepositoryImpl;
+import start.web.MiniHttpServer;
+import start.web.RouteDefinition;
+import start.web.RouteScanner;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static start.StartReflection.injectDependencies;
@@ -15,7 +19,8 @@ public class Main {
 
         Class<?>[] classes = {
                 UserService.class,
-                UserRepositoryImpl.class
+                UserRepositoryImpl.class,
+                UserController.class
         };
 
         for (Class<?> clazz : classes) {
@@ -32,7 +37,13 @@ public class Main {
 
         injectDependencies(container);
 
-        UserService userService = (UserService) container.get(UserService.class);
-        userService.execute();
+        List<RouteDefinition> routes = RouteScanner.scanRoutes(container);
+
+        for (RouteDefinition route : routes) {
+            System.out.println(route.getHttpMethod() + " " + route.getPath());
+        }
+
+        MiniHttpServer server = new MiniHttpServer(routes);
+        server.start(8080);
     }
 }
