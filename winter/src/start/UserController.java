@@ -3,9 +3,12 @@ package start;
 import start.annotations.Autowired;
 import start.annotations.DeleteMapping;
 import start.annotations.GetMapping;
+import start.annotations.PathVariable;
 import start.annotations.PostMapping;
 import start.annotations.PutMapping;
+import start.annotations.RequestBody;
 import start.annotations.RequestMapping;
+import start.annotations.RequestParam;
 import start.annotations.RestController;
 
 @RestController
@@ -16,27 +19,34 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public String getUsers() {
+    public String listUsers() {
         return "Lista de usuários";
     }
 
     @GetMapping("/find")
-    public String findUser() {
-        return userService.findUser();
+    public String findByQueryParam(@RequestParam("id") int id,
+                                   @RequestParam("name") String name) {
+        return "Buscando user por query param. id=" + id + ", name=" + name;
+    }
+
+    @GetMapping("/{id}")
+    public UserResponse findUser(@PathVariable("id") int id) {
+        return new UserResponse(id, "Rafael", "rafa@email.com");
     }
 
     @PostMapping
-    public String createUser() {
-        return userService.createUser();
+    public UserResponse createUser(@RequestBody UserRequest request) {
+        return new UserResponse(request.id, request.name, request.email);
     }
 
-    @PutMapping
-    public String updateUser() {
-        return userService.updateUser();
+    @PutMapping("/{id}")
+    public String updateUser(@PathVariable("id") int id,
+                             @RequestBody UserRequest request) {
+        return "Atualizando user " + id + " para name=" + request.name;
     }
 
-    @DeleteMapping
-    public String deleteUser() {
-        return userService.deleteUser();
+    @DeleteMapping("/{id}")
+    public String deleteUser(@PathVariable("id") int id) {
+        return "Removendo user " + id;
     }
 }

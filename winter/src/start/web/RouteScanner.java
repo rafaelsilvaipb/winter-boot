@@ -56,6 +56,10 @@ public class RouteScanner {
     }
 
     private static String normalizePath(String basePath, String methodPath) {
+        if (methodPath == null) {
+            methodPath = "";
+        }
+
         String full = (basePath + "/" + methodPath).replaceAll("/+", "/");
 
         if (!full.startsWith("/")) {

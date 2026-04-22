@@ -6,7 +6,7 @@ Usando somente o java puro.
 - [x] 1 - @Autowired
 - [X] 2 - @Component, @Service, @Repository
 - [x] 3 - @RestControler, @RequestMapping, (GET, POST, PUT, DELETE)
-- [ ] 4 - @RequestBody, @PathVariable, @RequestParam
+- [x] 4 - @RequestBody, @PathVariable, @RequestParam
 - [ ] 5 - @WinterBootApplication, Scanner automático de classes
 - [ ] 6 - Winter Data - Repository o mais pŕoximo do real
 
@@ -105,3 +105,28 @@ PUT
 ```
 curl -X DELETE http://localhost:8080/users
 ```
+
+## 4 - @RequestBody, @PathVariable, @RequestParam
+Agora sim, podemos criar o post via RequestBody, passaram Path e Params
+
+@Controller
+```
+    @GetMapping("/find")
+    public String findByQueryParam(@RequestParam("id") int id,
+                                   @RequestParam("name") String name) {
+        return "Buscando user por query param. id=" + id + ", name=" + name;
+    }
+
+    @GetMapping("/{id}")
+    public UserResponse findUser(@PathVariable("id") int id) {
+        return new UserResponse(id, "Rafael", "rafa@email.com");
+    }
+
+    @PostMapping
+    public UserResponse createUser(@RequestBody UserRequest request) {
+        return new UserResponse(request.id, request.name, request.email);
+    }
+```
+
+Como testar
+Sessão 3.
