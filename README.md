@@ -15,7 +15,7 @@ Usando somente o java puro.
 Na prmeira parte, temos a criação da anotação @Autowired, que usa o padrão de pradrão de projetos Singleton, 
 assim não precisamos usar o new toda vez, só pedir o objeto já criado.
 
-```
+```java
 @Autowired
 private UserRepository userRepository;
 ```
@@ -25,7 +25,7 @@ Na segunda parte, temos a criação das anotações @Component, @Service e @Repo
 Na prática, o @Service e @Repository são um @Component, mantive esse padrão.
 
 @Service
-```
+```java
 @Service
 public class UserService {
 
@@ -41,12 +41,12 @@ public class UserService {
 @Repository - Aqui o @Repository está na implementação, que é o certo. 
 Como o spring data cria a implementação em runtime, nos acostumamos colocar na interface, 
 mas não é o correto quando temos uma implementação escrita
-```
+```java
 public interface UserRepository {
 String findUser();
 }
 ```
-```
+```java
 @Repository
 public class UserRepositoryImpl implements UserRepository {
 
@@ -61,7 +61,7 @@ public class UserRepositoryImpl implements UserRepository {
 Agora temos o nosso controller funcional com get, post, put e delete.
 
 @Controller
-```
+```java
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -80,29 +80,28 @@ Como testar
 
 Suba o Main e teste:
 
-
 GET
-```
+```bash
 curl -X GET http://localhost:8080/users
 ```
 
 GET chamando service/repository
-```
+```bash
 curl -X GET http://localhost:8080/users/find
 ```
 
 POST
-```
+```bash
 curl -X POST http://localhost:8080/users
 ```
 
 PUT
-```
+```bash
 curl -X PUT http://localhost:8080/users
 ```
 
 PUT
-```
+```bash
 curl -X DELETE http://localhost:8080/users
 ```
 
@@ -110,7 +109,7 @@ curl -X DELETE http://localhost:8080/users
 Agora sim, podemos criar o post via RequestBody, passaram Path e Params
 
 @Controller
-```
+```java
     @GetMapping("/find")
     public String findByQueryParam(@RequestParam("id") int id,
                                    @RequestParam("name") String name) {
@@ -129,4 +128,5 @@ Agora sim, podemos criar o post via RequestBody, passaram Path e Params
 ```
 
 Como testar
+
 Sessão 3.
